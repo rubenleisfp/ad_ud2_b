@@ -1,8 +1,7 @@
 package ad.ad_ud2_b.practicas.practica306.dao.impl;
 
-import ad.ad_ud2_b.practicas.practica306_starter.dao.impl.ArtistaDaoMemoria;
-import ad.ad_ud2_b.practicas.practica306_starter.model.Artista;
-import ad.ad_ud2_b.practicas.practica306_starter.utils.UtilidadesArtista;
+import ad.ad_ud2_b.practicas.practica306.model.Artista;
+import ad.ad_ud2_b.practicas.practica306.utils.UtilidadesArtista;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,7 +11,7 @@ import static org.junit.Assert.*;
 
 public class ArtistaDaoMemoriaTest {
 
-    private ad.ad_ud2_b.practicas.practica306_starter.dao.impl.ArtistaDaoMemoria daoArtistas;
+    private ad.ad_ud2_b.practicas.practica306.dao.impl.ArtistaDaoMemoria daoArtistas;
     private final UtilidadesArtista utilidadesArtista = new UtilidadesArtista();
 
     @Before

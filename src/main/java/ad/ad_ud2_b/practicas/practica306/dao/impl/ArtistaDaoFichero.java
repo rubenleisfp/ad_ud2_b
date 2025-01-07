@@ -1,5 +1,7 @@
 package ad.ad_ud2_b.practicas.practica306.dao.impl;
 
+
+
 import ad.ad_ud2_b.practicas.practica306.dao.ArtistaDao;
 import ad.ad_ud2_b.practicas.practica306.exceptions.ExcepcionGestorArtista;
 import ad.ad_ud2_b.practicas.practica306.exceptions.RegistroDuplicado;

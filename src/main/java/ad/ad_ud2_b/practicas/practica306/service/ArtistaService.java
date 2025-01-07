@@ -1,12 +1,12 @@
 package ad.ad_ud2_b.practicas.practica306.service;
 
+
+
 import ad.ad_ud2_b.practicas.practica306.dao.ArtistaDao;
 import ad.ad_ud2_b.practicas.practica306.exceptions.ExcepcionGestorArtista;
 import ad.ad_ud2_b.practicas.practica306.exceptions.RegistroDuplicado;
 import ad.ad_ud2_b.practicas.practica306.model.Artista;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 /**
@@ -37,35 +37,6 @@ public class ArtistaService {
 		}
 		artistaDao.agregarArtista(artista);  // Cambiado para trabajar con String
 	}
-
-	private static final double SALARIO_MINIMO = 1000.0;
-
-	public void validarYAgregarArtista(Artista artista) throws RegistroDuplicado, ExcepcionGestorArtista {
-		// 1. Verificar si el artista ya existe
-		if (artistaDao.tieneArtista(artista.getNombre())) {
-			throw new RegistroDuplicado("El artista con el nombre: " + artista.getNombre() + " ya existe en base de datos.");
-		}
-
-		// 2. Verificar que el salario sea válido
-		if (artista.getSalario() < SALARIO_MINIMO) {
-			throw new ExcepcionGestorArtista("El salario del artista debe ser mayor a " + SALARIO_MINIMO);
-		}
-
-		// 3. Validar longitud del nombre
-		if (artista.getNombre().length() < 3) {
-			throw new ExcepcionGestorArtista("El nombre del artista debe tener al menos 3 caracteres.");
-		}
-
-		// 4. Validar la edad mínima
-		LocalDate hoy = LocalDate.now();
-		if (ChronoUnit.YEARS.between(artista.getFechaNacimiento(), hoy) < 18) {
-			throw new ExcepcionGestorArtista("El artista debe ser mayor de 18 años.");
-		}
-
-		// 5. Agregar el artista si pasa todas las validaciones
-		artistaDao.agregarArtista(artista);
-	}
-
 
 	/**
 	 * Muestra todos los artistas guardados.
