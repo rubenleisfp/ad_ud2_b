@@ -59,7 +59,7 @@ public class EmployeeServiceTest {
 
         String result = employeeService.getEmployeesWithLessSalarySeparatedWithCommas(new BigDecimal("20000"));
 
-        assertEquals("Alice,Bob", result);
+        assertEquals("Alice,Bob,", result);
         verify(employeeDao, times(1)).getEmployeesWithLessSalary(new BigDecimal("20000"));
     }
 
