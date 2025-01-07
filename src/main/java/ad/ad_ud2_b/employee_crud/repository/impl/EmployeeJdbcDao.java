@@ -42,7 +42,7 @@ public class EmployeeJdbcDao implements EmployeeDao {
 	public Employee findByName(String name) throws Exception {
 		Employee employee = null;
 		try (Connection conn = DriverHelper.getConnection();
-				PreparedStatement preparedStatement = conn.prepareStatement(SQL_SELECT_FIND_BY_NAME)) {
+			 PreparedStatement preparedStatement = conn.prepareStatement(SQL_SELECT_FIND_BY_NAME)) {
 			preparedStatement.setString(1, name);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
@@ -56,14 +56,32 @@ public class EmployeeJdbcDao implements EmployeeDao {
 		return employee;
 	}
 
+
+
 	@Override
 	public List<Employee> getEmployeesWithLessSalary(BigDecimal salaryCondition) throws Exception {
-		throw new UnsupportedOperationException("No implementado todavia");
+		List<Employee> result = new ArrayList<>();
+		try (Connection conn = DriverHelper.getConnection();
+			 PreparedStatement preparedStatement = conn.prepareStatement(SQL_SELECT_WITH_LESS_SALARY)) {
+			preparedStatement.setBigDecimal(1, salaryCondition);
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				Employee emp = mapResultSet(resultSet);
+				result.add(emp);
+			}
+
+		} catch (SQLException e) {
+			throw new SQLException(e);
+		} catch (Exception e) {
+			throw new Exception(e);
+		}
+		return result;
 	}
 
 	/**
 	 * Funcion comun para aquellas queries sin criterios de busqueda
-	 * 
+	 *
 	 * @param query
 	 * @return
 	 * @throws Exception
@@ -71,7 +89,7 @@ public class EmployeeJdbcDao implements EmployeeDao {
 	private List<Employee> query(String query) throws Exception {
 		List<Employee> result = new ArrayList<>();
 		try (Connection conn = DriverHelper.getConnection();
-				PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+			 PreparedStatement preparedStatement = conn.prepareStatement(query)) {
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				Employee obj = mapResultSet(resultSet);
@@ -87,12 +105,27 @@ public class EmployeeJdbcDao implements EmployeeDao {
 
 	@Override
 	public void create(Employee t) throws Exception {
-		throw new UnsupportedOperationException("No implementado todavia");
+		try (Connection conn = DriverHelper.getConnection();
+			 PreparedStatement preparedStatement = conn.prepareStatement(SQL_INSERT)) {
+			preparedStatement.setString(1, t.getName());
+			preparedStatement.setBigDecimal(2, t.getSalary());
+			preparedStatement.setTimestamp(3, Timestamp.valueOf(t.getCreatedDate()));
+
+			int rowsInserted = preparedStatement.executeUpdate();
+			if (rowsInserted > 0) {
+				System.out.println("Se ha"
+						+ " creado un nuevo empleado correctamente.");
+			}
+		} catch (SQLException e) {
+			throw new SQLException(e);
+		} catch (Exception e) {
+			throw new Exception(e);
+		}
 	}
 
 	/**
 	 * Mapea todos los objetos JDBC al objeto Java Empleado
-	 * 
+	 *
 	 * @param resultSet
 	 * @return
 	 * @throws SQLException
@@ -116,7 +149,7 @@ public class EmployeeJdbcDao implements EmployeeDao {
 	public Employee getById(Long id) throws Exception {
 		Employee employee = null;
 		try (Connection conn = DriverHelper.getConnection();
-				PreparedStatement preparedStatement = conn.prepareStatement(SQL_SELECT_FIND_BY_ID)) {
+			 PreparedStatement preparedStatement = conn.prepareStatement(SQL_SELECT_FIND_BY_ID)) {
 			preparedStatement.setLong(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
@@ -132,19 +165,47 @@ public class EmployeeJdbcDao implements EmployeeDao {
 
 	@Override
 	public void update(Employee e) throws Exception {
-		throw new UnsupportedOperationException("No implementado todavia");
+		try (Connection conn = DriverHelper.getConnection();
+			 PreparedStatement preparedStatement = conn.prepareStatement(SQL_UPDATE)) {
+			preparedStatement.setString(1, e.getName());
+			preparedStatement.setBigDecimal(2, e.getSalary());
+			preparedStatement.setLong(3, e.getId());
+
+			int rowsUpdated = preparedStatement.executeUpdate();
+			if (rowsUpdated > 0) {
+				System.out.println("Se ha actualizado el empleado con ID " + e.getId() + " correctamente.");
+			} else {
+				System.out.println("No se encontró el empleado con ID " + e.getId() + ".");
+			}
+		} catch (SQLException ex) {
+			throw new SQLException(ex);
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
 
 	}
 
 	@Override
 	public void delete(Long id) throws Exception {
-		throw new UnsupportedOperationException("No implementado todavia");
+		try (Connection conn = DriverHelper.getConnection();
+			 PreparedStatement preparedStatement = conn.prepareStatement(SQL_DELETE_BY_ID)) {
+			preparedStatement.setLong(1, id);
+
+			int rowsDeleted = preparedStatement.executeUpdate();
+			if (rowsDeleted <= 0) {
+				throw new IllegalStateException("No se ha borrado ningun registro");
+			}
+		} catch (SQLException e) {
+			throw new SQLException(e);
+		} catch (Exception e) {
+			throw new Exception(e);
+		}
 	}
 
 	@Override
 	public void deleteAll() throws Exception {
 		try (Connection conn = DriverHelper.getConnection();
-				PreparedStatement preparedStatement = conn.prepareStatement(SQL_DELETE_ALL)) {
+			 PreparedStatement preparedStatement = conn.prepareStatement(SQL_DELETE_ALL)) {
 			int row = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			throw new SQLException(e);
