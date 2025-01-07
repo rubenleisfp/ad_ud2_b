@@ -49,12 +49,7 @@ public class GestorBuffered {
 	public static void writeLines(File file, boolean append, List<String> lines) throws IOException {
 		// Con try resources no tenemos que cerrar los recursos, Java ya lo hace por
 		// nosotros
-		try (FileWriter fw = new FileWriter(file, append); BufferedWriter bw = new BufferedWriter(fw)) {
-			for (String line : lines) {
-				bw.write(line);
-				bw.newLine();
-			}
-		}
+		throw new UnsupportedOperationException("Operacion a implementar por el alumno");
 	}
 
 }

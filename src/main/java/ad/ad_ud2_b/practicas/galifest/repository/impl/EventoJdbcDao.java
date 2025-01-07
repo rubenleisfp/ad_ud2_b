@@ -26,66 +26,18 @@ public class EventoJdbcDao implements EventoDao {
 	// Métodos CRUD
 	@Override
 	public void create(Evento evento) throws Exception {
-		try (Connection connection = DriverHelper.getConnection();
-				PreparedStatement preparedStatement = connection.prepareStatement(CREATE_EVENTO)) {
-
-			preparedStatement.setString(1, evento.getNombreDelEvento());
-			preparedStatement.setTimestamp(2, new Timestamp(evento.getFechaHora().getTime()));
-			preparedStatement.setString(3, evento.getUbicacion());
-			preparedStatement.setString(4, evento.getDescripcion());
-			preparedStatement.setDouble(5, evento.getPrecioDeCoste());
-
-			int affectedRows = preparedStatement.executeUpdate();
-
-			if (affectedRows == 0) {
-				throw new SQLException("Creación del evento fallida, no se crearon filas.");
-			}
-
-		} catch (SQLException e) {
-			throw new Exception("Error al crear el evento.", e);
-		}
+		throw new UnsupportedOperationException("Operacion a implementar por el alumno");
 	}
 	
 	@Override
 	public List<Evento> getWithGreaterCost(double minimuCost) throws Exception {
-		List<Evento> eventos = new ArrayList<>();
-		try (Connection conn = DriverHelper.getConnection();
-				PreparedStatement preparedStatement = conn.prepareStatement(SELECT_WITH_GREATER_PRECIO_COSTE)) {
-			preparedStatement.setDouble(1, minimuCost);
-			ResultSet resultSet = preparedStatement.executeQuery();
-
-			while (resultSet.next()) {
-				Evento evento = mapResultSet(resultSet);
-				eventos.add(evento);
-			}
-
-		} catch (SQLException e) {
-			throw new SQLException(e);
-		} catch (Exception e) {
-			throw new Exception(e);
-		}
-		return eventos;
+		throw new UnsupportedOperationException("Operacion a implementar por el alumno");
 	}
 
 
 	@Override
 	public List<Evento> getAll() throws Exception {
-		List<Evento> eventos = new ArrayList<>();
-		try (Connection conn = DriverHelper.getConnection();
-				PreparedStatement preparedStatement = conn.prepareStatement(SELECT_ALL)) {
-			ResultSet resultSet = preparedStatement.executeQuery();
-
-			while (resultSet.next()) {
-				Evento evento = mapResultSet(resultSet);
-				eventos.add(evento);
-			}
-
-		} catch (SQLException e) {
-			throw new SQLException(e);
-		} catch (Exception e) {
-			throw new Exception(e);
-		}
-		return eventos;
+		throw new UnsupportedOperationException("Operacion a implementar por el alumno");
 	}
 
 	private Evento mapResultSet(ResultSet resultSet) throws SQLException {

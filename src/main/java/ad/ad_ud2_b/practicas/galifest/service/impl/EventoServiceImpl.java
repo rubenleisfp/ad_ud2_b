@@ -23,106 +23,54 @@ public class EventoServiceImpl implements EventoService {
 
 	@Override
 	public List<String> getLinesToHacienda(List<Evento> eventos) {
-		List<String> lines = new ArrayList<String>();
-		lines.add("CIF:T34895207");
-		double acumulador = 0;
-		for (Evento evento : eventos) {
-			acumulador = acumulador + evento.getPrecioDeCoste();
-		}
-		lines.add("Precio coste total:" + acumulador);
-		double precioAvg = acumulador / eventos.size();
-		lines.add("Precio medio:" + precioAvg);
-		return lines;
+		throw new UnsupportedOperationException("Operacion a implementar por el alumno");
 	}
 
 	@Override
 	public List<Evento> mapLinesToEventos(List<String> lines) throws ParseException {
-		List<Evento> eventos = new ArrayList<Evento>();
-		for (String line : lines) {
-			Evento evento = mapLineToEvento(line);
-			eventos.add(evento);
-		}
-		return eventos;
+		throw new UnsupportedOperationException("Operacion a implementar por el alumno");
 	}
 
 	@Override
 	public Evento mapLineToEvento(String line) throws ParseException {
 
-		String[] fields = line.split(",");
-		String nombre = fields[0];
-		String fechaHora = fields[1];
-		String ubicacion = fields[2];
-		String descripcion = fields[3];
-		String precioString = fields[4];
-		double precio = Double.parseDouble(precioString);
-
-		Evento evento = new Evento();
-		evento.setNombreDelEvento(nombre);
-		evento.setDescripcion(descripcion);
-		evento.setFechaHora(fechaHora);
-		evento.setUbicacion(ubicacion);
-		evento.setDescripcion(descripcion);
-		evento.setPrecioDeCoste(precio);
-
-		return evento;
+		throw new UnsupportedOperationException("Operacion a implementar por el alumno");
 	}
 	
 	@Override
 	public List<Evento> readFileToEvents(File inputCsv) throws IOException, ParseException {
-		List<String> lines = GestorBuffered.read(inputCsv);
-		lines.remove(0);
-		List<Evento> eventos = this.mapLinesToEventos(lines);
-		return eventos;
+		throw new UnsupportedOperationException("Operacion a implementar por el alumno");
 	}
 
 	@Override
 	public void writeCsvToDatabase(File inputCsv) throws Exception {
-		List<Evento> eventos = readFileToEvents(inputCsv);
-		for (Evento evento : eventos) {
-			this.eventoDao.create(evento);
-		}
+		throw new UnsupportedOperationException("Operacion a implementar por el alumno");
 	}
 
 	@Override
 	public void writeHaciendaFile(File txtFile, double minimumCost) throws Exception {
-		List<Evento> eventos = eventoDao.getWithGreaterCost(minimumCost);
-		List<String> linesToHacienda = getLinesToHacienda(eventos);
-		GestorBuffered.writeLines(txtFile, false, linesToHacienda);
+		throw new UnsupportedOperationException("Operacion a implementar por el alumno");
 	}
 
 	@Override
 	public String getJson() throws Exception {
-		List<Evento> eventos = eventoDao.getAll();
-		String json = gson.toJson(eventos);
-		return json;
+		throw new UnsupportedOperationException("Operacion a implementar por el alumno");
 
 	}
 
 	@Override
 	public String getJsonDto() throws Exception {
-		List<Evento> eventos = eventoDao.getAll();
-		List<EventoDto> dtos = this.toDtos(eventos);
-		String json =gson.toJson(dtos);
-		return json;
+		throw new UnsupportedOperationException("Operacion a implementar por el alumno");
 	}
 
 	@Override
 	public EventoDto toDto(Evento evento) {
-		EventoDto dto = new EventoDto();
-		dto.setNombreDelEvento(evento.getNombreDelEvento());
-		dto.setPrecioDeCoste(evento.getPrecioDeCoste());
-	
-		return dto;
+		throw new UnsupportedOperationException("Operacion a implementar por el alumno");
 	}
 
 	@Override
 	public List<EventoDto> toDtos(List<Evento> eventos) {
-		List<EventoDto> dtos = new ArrayList<>();
-		for (Evento evento: eventos) {
-			EventoDto dto = this.toDto(evento);
-			dtos.add(dto);
-		}
-		return dtos;
+		throw new UnsupportedOperationException("Operacion a implementar por el alumno");
 	}
 
 }
