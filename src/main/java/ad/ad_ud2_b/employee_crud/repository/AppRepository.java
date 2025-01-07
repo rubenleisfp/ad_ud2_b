@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import ad.ad_ud2_b.employee_crud.repository.impl.EmployeeDaoFactory;
+import ad.ad_ud2_b.employee_crud.repository.impl.EmployeeJdbcDao;
 import ad.ad_ud2_b.employee_crud.repository.model.Employee;
 
 public class AppRepository {
@@ -30,10 +30,7 @@ public class AppRepository {
 	private void cfgComponentes() {
 		//TODO en vez de esta linea, debe utilizarse la factoria para obtener la implementación de EmployeeDa a partir de un String
 		//Probaremos a usar una u otra cambiado el argumento que le pasemos a la factoria
-		//employeeDao = new EmployeeJdbcDao();
-		
-		EmployeeDaoFactory employeeDaoFactory = new EmployeeDaoFactory();
-		employeeDao = employeeDaoFactory.getEmployeeDao("JDBC");
+		employeeDao = new EmployeeJdbcDao();
 	}
 	
 	/**
@@ -41,18 +38,18 @@ public class AppRepository {
 	 */
 	private void procesar()  {
 		try {
-			//readAll();
+			readAll();
 			//deleteAll();
 			
 			//create();
 
 			//Actualizacion
-			Employee e= findByName(getEmployeeMock().getName());
+			//Employee e= findByName(getEmployeeMock().getName());
 			//e.setSalary(new BigDecimal("25000"));
 			//update(e);
 			
 			//Borramos y revisamos el borrado
-			delete(e);
+			//delete(e);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

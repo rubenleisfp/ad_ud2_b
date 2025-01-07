@@ -36,7 +36,7 @@ public class EmpleadoJdbcDao {
 		return empleados;
 	}
 
-	public List<Employee> emplyoeeWhereSalaryLess(Double salaryInput) {
+	public List<Employee> getEmployeesWithLessSalary(Double salaryInput) {
 		List<Employee> empleados = new ArrayList<>();
 		String SQL_SELECT = "Select * from EMPLOYEE WHERE SALARY < ?";
 

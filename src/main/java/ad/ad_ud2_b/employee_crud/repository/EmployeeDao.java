@@ -11,7 +11,7 @@ import ad.ad_ud2_b.employee_crud.repository.model.Employee;
  * El dia de mañana podría sustiuir la implementacion de JDBC por lectura de fichero p.ej
  * 
  */
-public interface EmployeeDao extends GenericDao< Employee>{
+public interface EmployeeDao extends GenericDao< Employee> {
 
 	/**
 	 * Obtiene todos los empleado cuya primera letra es A

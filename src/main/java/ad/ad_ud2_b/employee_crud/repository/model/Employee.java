@@ -5,14 +5,14 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
- * POJO del modelo 
+ * POJO del modelo
  */
 public class Employee {
 
-    private Long id;
-    private String name;
-    private BigDecimal salary;
-    private LocalDateTime createdDate;
+	private Long id;
+	private String name;
+	private BigDecimal salary;
+	private LocalDateTime createdDate;
 
 	public Employee() {
 
@@ -69,8 +69,8 @@ public class Employee {
 		return Objects.equals(createdDate, other.createdDate) && Objects.equals(id, other.id)
 				&& Objects.equals(name, other.name) && Objects.equals(salary, other.salary);
 	}
-	
-	
 
-	
+
+
+
 }

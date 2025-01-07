@@ -56,27 +56,9 @@ public class EmployeeJdbcDao implements EmployeeDao {
 		return employee;
 	}
 
-	
-	
 	@Override
 	public List<Employee> getEmployeesWithLessSalary(BigDecimal salaryCondition) throws Exception {
-		List<Employee> result = new ArrayList<>();
-		try (Connection conn = DriverHelper.getConnection();
-				PreparedStatement preparedStatement = conn.prepareStatement(SQL_SELECT_WITH_LESS_SALARY)) {
-			preparedStatement.setBigDecimal(1, salaryCondition);
-			ResultSet resultSet = preparedStatement.executeQuery();
-
-			while (resultSet.next()) {
-				Employee emp = mapResultSet(resultSet);
-				result.add(emp);
-			}
-
-		} catch (SQLException e) {
-			throw new SQLException(e);
-		} catch (Exception e) {
-			throw new Exception(e);
-		}
-		return result;
+		throw new UnsupportedOperationException("No implementado todavia");
 	}
 
 	/**
@@ -105,22 +87,7 @@ public class EmployeeJdbcDao implements EmployeeDao {
 
 	@Override
 	public void create(Employee t) throws Exception {
-		try (Connection conn = DriverHelper.getConnection();
-				PreparedStatement preparedStatement = conn.prepareStatement(SQL_INSERT)) {
-			preparedStatement.setString(1, t.getName());
-			preparedStatement.setBigDecimal(2, t.getSalary());
-			preparedStatement.setTimestamp(3, Timestamp.valueOf(t.getCreatedDate()));
-
-			int rowsInserted = preparedStatement.executeUpdate();
-			if (rowsInserted > 0) {
-				System.out.println("Se ha"
-						+ " creado un nuevo empleado correctamente.");
-			}
-		} catch (SQLException e) {
-			throw new SQLException(e);
-		} catch (Exception e) {
-			throw new Exception(e);
-		}
+		throw new UnsupportedOperationException("No implementado todavia");
 	}
 
 	/**
@@ -165,41 +132,13 @@ public class EmployeeJdbcDao implements EmployeeDao {
 
 	@Override
 	public void update(Employee e) throws Exception {
-		try (Connection conn = DriverHelper.getConnection();
-				PreparedStatement preparedStatement = conn.prepareStatement(SQL_UPDATE)) {
-			preparedStatement.setString(1, e.getName());
-			preparedStatement.setBigDecimal(2, e.getSalary());
-			preparedStatement.setLong(3, e.getId());
-
-			int rowsUpdated = preparedStatement.executeUpdate();
-			if (rowsUpdated > 0) {
-				System.out.println("Se ha actualizado el empleado con ID " + e.getId() + " correctamente.");
-			} else {
-				System.out.println("No se encontró el empleado con ID " + e.getId() + ".");
-			}
-		} catch (SQLException ex) {
-			throw new SQLException(ex);
-		} catch (Exception ex) {
-			throw new Exception(ex);
-		}
+		throw new UnsupportedOperationException("No implementado todavia");
 
 	}
 
 	@Override
 	public void delete(Long id) throws Exception {
-		try (Connection conn = DriverHelper.getConnection();
-				PreparedStatement preparedStatement = conn.prepareStatement(SQL_DELETE_BY_ID)) {
-			preparedStatement.setLong(1, id);
-
-			int rowsDeleted = preparedStatement.executeUpdate();
-			if (rowsDeleted <= 0) {
-				throw new IllegalStateException("No se ha borrado ningun registro");
-			}
-		} catch (SQLException e) {
-			throw new SQLException(e);
-		} catch (Exception e) {
-			throw new Exception(e);
-		}
+		throw new UnsupportedOperationException("No implementado todavia");
 	}
 
 	@Override
