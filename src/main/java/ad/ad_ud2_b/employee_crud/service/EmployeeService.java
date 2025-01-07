@@ -35,11 +35,12 @@ public class EmployeeService  {
 	 */
 	public String getEmployeesWithLessSalarySeparatedWithCommas(BigDecimal salaryCondition) throws Exception {
 		List<Employee> employeesWithLessSalary = this.employeeDao.getEmployeesWithLessSalary(salaryCondition);
-		List<String> nameList = employeesWithLessSalary.stream()
-				.map(Employee::getName)
-				.collect(Collectors.toList());
-		String namesCommaSeparated = String.join(",", nameList);
-		return namesCommaSeparated;
+		StringBuilder sb = new StringBuilder();
+		for (Employee e : employeesWithLessSalary) {
+			sb.append(e.getName());
+			sb.append(",");
+		}
+		return sb.toString();
 	}
 
 	/**
