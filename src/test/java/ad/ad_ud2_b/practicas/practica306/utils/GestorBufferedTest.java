@@ -37,7 +37,7 @@ public class GestorBufferedTest {
     @Test
     public void testReadFileNoFileExists() throws IOException {
         // Test para leer cuando el fichero no existe
-        List<String> result = ad.ad_ud2_b.practicas.practica306_starter.utils.GestorBuffered.read(testFilePath);
+        List<String> result = GestorBuffered.read(testFilePath);
 
         assertTrue(result.isEmpty()); // Debe devolver una lista vacía
     }
@@ -46,9 +46,9 @@ public class GestorBufferedTest {
     public void testWriteLinesAppendFalse() throws IOException {
         // Test para escribir líneas en el fichero (sin append)
         List<String> lines = Arrays.asList("Línea 1", "Línea 2", "Línea 3");
-        ad.ad_ud2_b.practicas.practica306_starter.utils.GestorBuffered.writeLines(testFilePath, false, lines);
+        GestorBuffered.writeLines(testFilePath, false, lines);
 
-        List<String> result = ad.ad_ud2_b.practicas.practica306_starter.utils.GestorBuffered.read(testFilePath);
+        List<String> result = GestorBuffered.read(testFilePath);
 
         assertEquals(3, result.size());
         assertEquals("Línea 1", result.get(0));
@@ -63,11 +63,11 @@ public class GestorBufferedTest {
         List<String> lines2 = Arrays.asList("Línea 3", "Línea 4");
 
         // Primero escribe sin append
-        ad.ad_ud2_b.practicas.practica306_starter.utils.GestorBuffered.writeLines(testFilePath, false, lines1);
+        GestorBuffered.writeLines(testFilePath, false, lines1);
         // Ahora escribe con append
-        ad.ad_ud2_b.practicas.practica306_starter.utils.GestorBuffered.writeLines(testFilePath, true, lines2);
+        GestorBuffered.writeLines(testFilePath, true, lines2);
 
-        List<String> result = ad.ad_ud2_b.practicas.practica306_starter.utils.GestorBuffered.read(testFilePath);
+        List<String> result = GestorBuffered.read(testFilePath);
 
         assertEquals(4, result.size());
         assertEquals("Línea 1", result.get(0));
@@ -80,7 +80,7 @@ public class GestorBufferedTest {
     public void testReadFileFileExists() throws IOException {
         // Test para leer líneas cuando el fichero ya tiene contenido
         List<String> lines = Arrays.asList("Línea 1", "Línea 2", "Línea 3");
-        ad.ad_ud2_b.practicas.practica306_starter.utils.GestorBuffered.writeLines(testFilePath, false, lines);
+        GestorBuffered.writeLines(testFilePath, false, lines);
 
         List<String> result = GestorBuffered.read(testFilePath);
 

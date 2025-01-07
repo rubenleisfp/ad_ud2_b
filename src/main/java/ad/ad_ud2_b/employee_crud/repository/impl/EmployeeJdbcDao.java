@@ -207,9 +207,6 @@ public class EmployeeJdbcDao implements EmployeeDao {
 		try (Connection conn = DriverHelper.getConnection();
 				PreparedStatement preparedStatement = conn.prepareStatement(SQL_DELETE_ALL)) {
 			int row = preparedStatement.executeUpdate();
-			if (row <= 0) {
-				throw new IllegalStateException("No se ha borrado ningun registro");
-			}
 		} catch (SQLException e) {
 			throw new SQLException(e);
 		} catch (Exception e) {

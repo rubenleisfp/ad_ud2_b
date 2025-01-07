@@ -96,7 +96,7 @@ public class AppGestorArtistasSwing extends JFrame {
                 double salario = Double.parseDouble(txtSalario.getText());
                 LocalDate fechaNacimiento = LocalDate.parse(txtFechaNacimiento.getText(), FORMATTER);
                 Artista nuevoArtista = new Artista(nombre, salario, fechaNacimiento);
-                artistaService.agregarArtista(nuevoArtista);
+                artistaService.validarYAgregarArtista(nuevoArtista);
                 JOptionPane.showMessageDialog(formulario, "Artista agregado con éxito.");
                 formulario.dispose();
                 cargarArtistasEnTabla();

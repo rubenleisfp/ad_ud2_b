@@ -101,7 +101,7 @@ public class AppGestorArtistas {
                     if (artistaService.tieneArtista(artista.getNombre())) {
                         System.out.println("El artista indica ya existe");
                     } else {
-                        artistaService.agregarArtista(artista);
+                        artistaService.validarYAgregarArtista(artista);
                         System.out.println("Artista agregado correctamente.");
                     }
                     break;
