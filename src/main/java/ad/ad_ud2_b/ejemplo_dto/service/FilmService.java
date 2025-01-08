@@ -13,13 +13,13 @@ public class FilmService  {
 
 	private FilmDao filmDao;
 	private Gson gson = new Gson();
-	
+
 	public FilmService(FilmDao filmDao) {
 		this.filmDao = filmDao;
 	}
 
 	public Set<Film> getAll() throws Exception {
-		return filmDao.getAll();	
+		return filmDao.getAll();
 	}
 
 	public Film getById(int id) throws Exception {
@@ -27,7 +27,7 @@ public class FilmService  {
 	}
 
 	public void create(Film film) throws Exception {
-		 filmDao.create(film);
+		filmDao.create(film);
 	}
 
 	public void update(Film film) throws Exception {
@@ -45,7 +45,8 @@ public class FilmService  {
 	 * @return
 	 */
 	public FilmDto toDto(Film film) {
-		throw new UnsupportedOperationException("Falta implementar por el alumno");
+		FilmDto filmDto = new FilmDto(film.getTitle(), film.getReleaseYear());
+		return filmDto;
 	}
 
 	/**
@@ -54,7 +55,12 @@ public class FilmService  {
 	 * @return
 	 */
 	public List<FilmDto> toDtos(Set<Film> films) {
-		throw new UnsupportedOperationException("Falta implementar por el alumno");
+		List<FilmDto> filmDtoList = new ArrayList<>();
+		for (Film film : films) {
+			FilmDto filmDto = toDto(film);
+			filmDtoList.add(filmDto);
+		}
+		return filmDtoList;
 	}
 
 	/**
@@ -64,7 +70,9 @@ public class FilmService  {
 	 * @throws Exception
 	 */
 	public String getFilmTitleAndYearAsJson() throws Exception {
-		throw new UnsupportedOperationException("Falta implementar por el alumno");
+		Set<Film> films = this.filmDao.getAll();
+		List<FilmDto> dtos = toDtos(films);
+		return gson.toJson(dtos);
 	}
 
 }

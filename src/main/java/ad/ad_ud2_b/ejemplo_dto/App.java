@@ -5,17 +5,17 @@ import ad.ad_ud2_b.ejemplo_dto.repository.impl.FilmJdbcDao;
 import ad.ad_ud2_b.ejemplo_dto.service.FilmService;
 
 public class App {
-	
+
     FilmService filmService;
-	FilmDao filmDao;
-    
+    FilmDao filmDao;
+
     public static void main(String[] args) {
-		App app = new App();
-		app.run();
-	}
-    
+        App app = new App();
+        app.run();
+    }
+
     public void run() {
- 		cfg();
+        cfg();
         getJson();
     }
 
@@ -23,7 +23,8 @@ public class App {
      * Instanciamos el DAO y la clase SERVICE
      */
     private void cfg() {
-        throw new UnsupportedOperationException("Falta implementar por el alumno");
+        filmDao = new FilmJdbcDao();
+        filmService = new FilmService(filmDao);
     }
 
     /**
