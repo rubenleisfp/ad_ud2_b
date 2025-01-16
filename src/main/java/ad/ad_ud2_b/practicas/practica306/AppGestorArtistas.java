@@ -45,8 +45,15 @@ public class AppGestorArtistas {
         try {
             menuOpciones(scanner);
         } catch (RegistroDuplicado | ExcepcionGestorArtista e) {
-            System.out.println("Error al realizar la operativa");
-            System.out.println(e);
+            //Error genérico para el usuario:
+            System.out.println("Error al realizar la operativa. Intentelo más tarde");
+
+            //Error técnico:
+            //La sentencia e.printStackTrace nos vale para pintar el error en una app de consola.
+            //Lo recomendable en apps reales (escritorio, movil, web...), sería hacer lo siguiente:
+            //1.-Mostrar el detalle del error en una opción desplegable al usuario "Ver más detalle"
+            //2.-Registrar toda la información detallada en un log
+            e.printStackTrace();
         } finally {
             scanner.close();
         }
