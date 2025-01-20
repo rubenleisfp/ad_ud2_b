@@ -20,8 +20,13 @@ public class EmployeeService  {
 	}
 
 
+	public List<Employee> getAll() throws Exception {
+		return this.employeeDao.getAll();
+    }
+
+
 	public List<Employee> getEmployeesWithLessSalary(BigDecimal salaryCondition) throws Exception {
-		throw new UnsupportedOperationException("Operacion a implementar por el alumno");
+		return this.employeeDao.getEmployeesWithLessSalary(salaryCondition);
 	}
 
 
@@ -34,7 +39,13 @@ public class EmployeeService  {
 	 * @throws Exception
 	 */
 	public String getEmployeesWithLessSalarySeparatedWithCommas(BigDecimal salaryCondition) throws Exception {
-		throw new UnsupportedOperationException("Operacion a implementar por el alumno");
+		List<Employee> employeeList =this.getEmployeesWithLessSalary(salaryCondition);
+		StringBuilder sb = new StringBuilder();
+		for (Employee employee : employeeList) {
+			sb.append(employee.getName());
+			sb.append(",");
+		}
+		return sb.toString();
 	}
 
 	/**
@@ -46,7 +57,9 @@ public class EmployeeService  {
 	 * @throws Exception
 	 */
 	public String getEmployeesWithLessSalaryAsJson(BigDecimal salaryCondition) throws Exception {
-		throw new UnsupportedOperationException("Operacion a implementar por el alumno");
+		List<Employee> employeeList = this.employeeDao.getEmployeesWithLessSalary(salaryCondition);
+		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTypeAdapter()).create();
+		return gson.toJson(employeeList);
 	}
 
 	/**
@@ -56,7 +69,14 @@ public class EmployeeService  {
 	 * @throws Exception
 	 */
 	public void increaseSalary() throws Exception {
-		throw new UnsupportedOperationException("Operacion a implementar por el alumno");
+		List<Employee> employeeList = this.employeeDao.getAll();
+		if (employeeList != null) {
+			for (Employee employee : employeeList) {
+				BigDecimal porcentajeAumento = getIncrease(employee.getSalary());
+				employee.setSalary(employee.getSalary().add(employee.getSalary().multiply(porcentajeAumento).divide(new BigDecimal(100))));
+				this.employeeDao.update(employee);
+			}
+		}
 	}
 
 	/**
@@ -65,7 +85,13 @@ public class EmployeeService  {
 	 * @return
 	 */
 	public BigDecimal getIncrease(BigDecimal salary) {
-		throw new UnsupportedOperationException("Operacion a implementar por el alumno");
+		if (salary.compareTo(new BigDecimal(18000))<=0) {
+			return new BigDecimal(20);
+		} else if (salary.compareTo(new BigDecimal(25000)) <= 0) {
+			return new BigDecimal(10);
+		} else {
+			return new BigDecimal(5);
+		}
 	}
 
 }
