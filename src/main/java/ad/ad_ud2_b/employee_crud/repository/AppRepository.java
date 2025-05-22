@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import ad.ad_ud2_b.employee_crud.repository.impl.EmployeeDaoFactory;
+import ad.ad_ud2_b.employee_crud.repository.impl.EmployeeFileDao;
 import ad.ad_ud2_b.employee_crud.repository.impl.EmployeeJdbcDao;
 import ad.ad_ud2_b.employee_crud.repository.model.Employee;
 
@@ -30,7 +32,11 @@ public class AppRepository {
 	private void cfgComponentes() {
 		//TODO en vez de esta linea, debe utilizarse la factoria para obtener la implementación de EmployeeDa a partir de un String
 		//Probaremos a usar una u otra cambiado el argumento que le pasemos a la factoria
-		employeeDao = new EmployeeJdbcDao();
+		//employeeDao = new EmployeeFileDao("src/main/resources/employee.csv");
+		//employeeDao = new EmployeeJdbcDao();
+
+		EmployeeDaoFactory employeeDaoFactory = new EmployeeDaoFactory();
+		employeeDao = employeeDaoFactory.getEmployeeDao("JDBC");
 	}
 	
 	/**

@@ -23,7 +23,8 @@ public class App {
      * Instanciamos el DAO y la clase SERVICE
      */
     private void cfg() {
-        throw new UnsupportedOperationException("Falta implementar por el alumno");
+        filmDao = new FilmJdbcDao();
+        filmService = new FilmService(filmDao);
     }
 
     /**

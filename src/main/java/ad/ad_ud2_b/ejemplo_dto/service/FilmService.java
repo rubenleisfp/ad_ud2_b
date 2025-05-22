@@ -45,7 +45,10 @@ public class FilmService  {
 	 * @return
 	 */
 	public FilmDto toDto(Film film) {
-		throw new UnsupportedOperationException("Falta implementar por el alumno");
+		FilmDto filmDto = new FilmDto();
+		filmDto.setTitle(film.getTitle());
+		filmDto.setReleaseYear(film.getReleaseYear());
+		return filmDto;
 	}
 
 	/**
@@ -54,7 +57,12 @@ public class FilmService  {
 	 * @return
 	 */
 	public List<FilmDto> toDtos(Set<Film> films) {
-		throw new UnsupportedOperationException("Falta implementar por el alumno");
+		List<FilmDto> dtos = new ArrayList<>();
+		for (Film film: films) {
+			FilmDto filmDto = toDto(film);
+			dtos.add(filmDto);
+		}
+		return dtos;
 	}
 
 	/**
@@ -64,7 +72,9 @@ public class FilmService  {
 	 * @throws Exception
 	 */
 	public String getFilmTitleAndYearAsJson() throws Exception {
-		throw new UnsupportedOperationException("Falta implementar por el alumno");
+		Set<Film> films = this.filmDao.getAll();
+		List<FilmDto> dtos = toDtos(films);
+		return gson.toJson(dtos);
 	}
 
 }

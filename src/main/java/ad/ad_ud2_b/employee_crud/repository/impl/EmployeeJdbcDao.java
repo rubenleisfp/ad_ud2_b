@@ -56,9 +56,25 @@ public class EmployeeJdbcDao implements EmployeeDao {
 		return employee;
 	}
 
+	//private static final String SQL_SELECT_WITH_LESS_SALARY = "Select * from EMPLOYEE WHERE SALARY < ?";
 	@Override
 	public List<Employee> getEmployeesWithLessSalary(BigDecimal salaryCondition) throws Exception {
-		throw new UnsupportedOperationException("No implementado todavia");
+		List<Employee> result = new ArrayList<>();
+		try (Connection conn = DriverHelper.getConnection();
+			 PreparedStatement preparedStatement = conn.prepareStatement(SQL_SELECT_WITH_LESS_SALARY)) {
+			 preparedStatement.setBigDecimal(1, salaryCondition);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				Employee employee = mapResultSet(resultSet);
+				result.add(employee);
+			}
+
+		} catch (SQLException e) {
+			throw new SQLException(e);
+		} catch (Exception e) {
+			throw new Exception(e);
+		}
+		return result;
 	}
 
 	/**
@@ -85,9 +101,24 @@ public class EmployeeJdbcDao implements EmployeeDao {
 		return result;
 	}
 
+
+
+	//private static final String SQL_INSERT = "INSERT INTO EMPLOYEE (NAME, SALARY, CREATED_DATE) VALUES (?,?,?)";
 	@Override
-	public void create(Employee t) throws Exception {
-		throw new UnsupportedOperationException("No implementado todavia");
+	public void create(Employee employee) throws Exception {
+
+		try (Connection conn = DriverHelper.getConnection();
+			 PreparedStatement preparedStatement = conn.prepareStatement(SQL_INSERT)) {
+			 preparedStatement.setString(1,employee.getName());
+			preparedStatement.setBigDecimal(2,employee.getSalary());
+			preparedStatement.setTimestamp(3,Timestamp.valueOf(employee.getCreatedDate()));
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+		throw new SQLException(e);
+		} catch (Exception e) {
+			throw new Exception(e);
+		}
+
 	}
 
 	/**
@@ -131,14 +162,34 @@ public class EmployeeJdbcDao implements EmployeeDao {
 	}
 
 	@Override
-	public void update(Employee e) throws Exception {
-		throw new UnsupportedOperationException("No implementado todavia");
+	public void update(Employee employee) throws Exception {
+		try (Connection conn = DriverHelper.getConnection();
+			 PreparedStatement preparedStatement = conn.prepareStatement(SQL_UPDATE)) {
+			preparedStatement.setString(1,employee.getName());
+			preparedStatement.setBigDecimal(2,employee.getSalary());
+			preparedStatement.setLong(3,employee.getId());
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			throw new SQLException(e);
+		} catch (Exception e) {
+			throw new Exception(e);
+		}
+
 
 	}
 
+
 	@Override
 	public void delete(Long id) throws Exception {
-		throw new UnsupportedOperationException("No implementado todavia");
+		try (Connection conn = DriverHelper.getConnection();
+			 PreparedStatement preparedStatement = conn.prepareStatement(SQL_DELETE_BY_ID)) {
+			preparedStatement.setLong(1,id);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			throw new SQLException(e);
+		} catch (Exception e) {
+			throw new Exception(e);
+		}
 	}
 
 	@Override

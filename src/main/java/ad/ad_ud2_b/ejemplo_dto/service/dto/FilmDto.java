@@ -5,6 +5,10 @@ public class FilmDto {
     private String title;
     private short releaseYear;
 
+    public FilmDto() {
+
+    }
+
     public FilmDto(String title, short releaseYear) {
         this.title = title;
         this.releaseYear = releaseYear;
